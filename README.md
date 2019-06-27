@@ -12,4 +12,4 @@ The server will listen for the following signals:
 `syscall.SIGHUP`, `syscall.SIGUSR1`, `syscall.SIGUSR2`, `syscall.SIGINT`, `syscall.SIGTERM`, and `syscall.SIGTSTP`
 
 - Windows:
-`http.Server`
+  `syscall.SIGTERM`
