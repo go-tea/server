@@ -10,17 +10,15 @@ import (
 	"os"
 	"os/exec"
 
-	//	"os/signal"
 	"runtime"
 	"strings"
 	"sync"
 	"syscall"
 	"time"
-	// "github.com/fvbock/uds-go/introspect"
 )
 
 const (
-	PRE_SIGNAL = iota
+	PRE_SIGNAL = iota // Signals
 	POST_SIGNAL
 
 	STATE_INIT
@@ -36,6 +34,7 @@ var (
 	socketPtrOffsetMap   map[string]uint
 	runningServersForked bool
 
+	// Defaults
 	DefaultReadTimeOut    time.Duration
 	DefaultWriteTimeOut   time.Duration
 	DefaultMaxHeaderBytes int
