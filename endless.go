@@ -17,8 +17,9 @@ import (
 	"time"
 )
 
+// Constants
 const (
-	PRE_SIGNAL = iota // Signals
+	PRE_SIGNAL = iota
 	POST_SIGNAL
 
 	STATE_INIT
@@ -27,6 +28,7 @@ const (
 	STATE_TERMINATE
 )
 
+// Vars
 var (
 	runningServerReg     sync.RWMutex
 	runningServers       map[string]*EndlessServer
@@ -34,7 +36,6 @@ var (
 	socketPtrOffsetMap   map[string]uint
 	runningServersForked bool
 
-	// Defaults
 	DefaultReadTimeOut    time.Duration
 	DefaultWriteTimeOut   time.Duration
 	DefaultMaxHeaderBytes int
@@ -48,6 +49,7 @@ var (
 
 var signalHooks map[int]map[os.Signal][]func()
 
+// EndlessServer struct
 type EndlessServer struct {
 	http.Server
 	EndlessListener  net.Listener
@@ -111,6 +113,7 @@ func NewServer(addr string, handler http.Handler) (srv *EndlessServer) {
 	return
 }
 
+// ListenAndServe function
 func ListenAndServe(addr string, handler http.Handler) error {
 	server := NewServer(addr, handler)
 	return server.ListenAndServe()
@@ -244,7 +247,7 @@ it got passed when restarted.
 */
 func (srv *EndlessServer) getListener(laddr string) (l net.Listener, err error) {
 	if srv.isChild {
-		var ptrOffset uint = 0
+		var ptrOffset uint
 		runningServerReg.RLock()
 		defer runningServerReg.RUnlock()
 		if len(socketPtrOffsetMap) > 0 {
@@ -342,7 +345,7 @@ func (srv *EndlessServer) fork() (err error) {
 
 	// only one server instance should fork!
 	if runningServersForked {
-		return errors.New("Another process already forked. Ignoring this one.")
+		return errors.New("Another process already forked, ignoring this one")
 	}
 
 	runningServersForked = true
@@ -455,7 +458,7 @@ related code endless itself runs
 */
 func (srv *EndlessServer) RegisterSignalHook(prePost int, sig os.Signal, f func()) (err error) {
 	if prePost != PRE_SIGNAL && prePost != POST_SIGNAL {
-		err = fmt.Errorf("Cannot use %v for prePost arg. Must be endless.PRE_SIGNAL or endless.POST_SIGNAL.", sig)
+		err = fmt.Errorf("Cannot use %v for prePost arg, must be endless.PRE_SIGNAL or endless.POST_SIGNAL", sig)
 		return
 	}
 	for _, s := range hookableSignals {
@@ -464,6 +467,6 @@ func (srv *EndlessServer) RegisterSignalHook(prePost int, sig os.Signal, f func(
 			return
 		}
 	}
-	err = fmt.Errorf("Signal %v is not supported.", sig)
+	err = fmt.Errorf("Signal %v is not supported", sig)
 	return
 }
