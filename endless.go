@@ -212,7 +212,7 @@ func (srv *EndlessServer) ListenAndServeTLS(certFile, keyFile string) (err error
 
 	config := &tls.Config{}
 	if srv.TLSConfig != nil {
-		*config = *srv.TLSConfig
+		config = srv.TLSConfig
 	}
 	if config.NextProtos == nil {
 		config.NextProtos = []string{"http/1.1"}
