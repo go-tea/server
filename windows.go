@@ -60,7 +60,7 @@ func (srv *EndlessServer) handleSignals() {
 		srv.signalHooks(PRE_SIGNAL, sig)
 		switch sig {
 		case os.Interrupt:
-			log.Println("Received Interupt.")
+			log.Println("Received Interrupt.")
 			srv.shutdown()
 		case syscall.SIGTERM:
 			log.Println("Received SIGTERM.")
