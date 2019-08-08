@@ -1,9 +1,10 @@
+
+[![GoDoc](http://img.shields.io/badge/go-documentation-blue.svg?style=flat-square)](http://godoc.org/github.com/go-tea/server) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/go-tea/server)](https://goreportcard.com/report/github.com/go-tea/server)
+
 # server
 
 Fork from endless with modification for windows
-
-[![GoDoc](https://godoc.org/github.com/fvbock/endless?status.svg)](https://godoc.org/github.com/fvbock/endless)
-
 
 ## Signals
 
